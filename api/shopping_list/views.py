@@ -2,9 +2,8 @@
 from __future__ import unicode_literals
 
 from rest_framework import generics 
-from serializers import ItemSerializer
-from models import Item
-import models
+from .serializers import ItemSerializer
+from .models import Item
 
 class ItemListView(generics.ListCreateAPIView):
     serializer_class = ItemSerializer
