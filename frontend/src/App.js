@@ -6,13 +6,31 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Fetch from 'react-fetch';
+import ShoppingListView from './ShoppingListView';
 
 class App extends Component {
   constructor(){
     super();
     this.state = {
       newItem: new ItemModel(),
+      itemList: []
     }
+  }
+
+  componentWillMount() {
+    this.getList();
+  }
+
+  getList = () => {
+    var data = {
+      'method': 'GET',
+      headers: {'Content-Type': 'application/json'},
+    };
+    fetch('http://localhost:8080/list/items/', data)
+      .then((response) => { return response.json(); })
+      .then((response) => {
+        this.setState({itemList: response.map((item) => { return new ItemModel(item); }) });
+      });
   }
 
   onEditTextField = (event, data) => {
@@ -29,7 +47,7 @@ class App extends Component {
     };
     fetch('http://localhost:8080/list/items/', data).then(function(response) {
         console.log(response);
-    })
+    }).then(this.getList())
   }
 
   render() {
@@ -40,6 +58,9 @@ class App extends Component {
             <Col>
               <Row center="xs">
                 <h1>Shopping List App</h1>
+              </Row>
+              <Row center="xs">
+                <ShoppingListView itemList={this.state.itemList} getList={this.getList}/>
               </Row>
               <form>
                 <Row center="xs">
