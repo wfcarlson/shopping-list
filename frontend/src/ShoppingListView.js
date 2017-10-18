@@ -44,7 +44,7 @@ export default class ShoppingListView extends Component {
   render(){
       return (
         <List>
-            {this.state.itemList.map(this.renderItem)}
+            {this.state.itemList.sort((a, b) => {a.id > b.id}).map(this.renderItem)}
         </List>
       );
   }

@@ -3,6 +3,8 @@ services:
   db:
     container_name: shoppinglist_db
     image: postgres
+    ports:
+      - "15432:5432"
   api:
     build: .
     command: python3 code/manage.py runserver 0.0.0.0:8080
