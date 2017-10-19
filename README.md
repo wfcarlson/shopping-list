@@ -1,7 +1,5 @@
-To run server:
-    change directory into 'api'
-    run 'python manage.py runserver 8080'
+To run:
+	docker-compose up -d
+	docker-compose exec api python manage.py migrate
 
-To run front end:
-    change directory into 'frontend'
-    run npm start
+	Go to localhost:3000

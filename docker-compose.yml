@@ -6,8 +6,10 @@ services:
     ports:
       - "15432:5432"
   api:
-    build: .
-    command: python3 code/manage.py runserver 0.0.0.0:8080
+    build: 
+      context: .
+      dockerfile: Dockerfile-api
+    command: python3 manage.py runserver 0.0.0.0:8080
     container_name: shoppinglist_api
     volumes:
       - ./api:/code
@@ -15,3 +17,17 @@ services:
       - "8080:8080"
     depends_on:
       - db
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile-web
+    volumes:
+      - ./frontend:/code
+    ports:
+      - "3000:3000"
+    command: npm start
+    container_name: shoppinglist_front
+    links:
+      - api
+    depends_on:
+      - api
