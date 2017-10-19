@@ -1,0 +1,33 @@
+version: "2"
+services:
+  db:
+    container_name: shoppinglist_db
+    image: postgres
+    ports:
+      - "15432:5432"
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile-api
+    command: python3 manage.py runserver 0.0.0.0:8080
+    container_name: shoppinglist_api
+    volumes:
+      - ./api:/code
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile-web
+    volumes:
+      - ./frontend:/code
+    ports:
+      - "3000:3000"
+    command: npm start
+    container_name: shoppinglist_front
+    links:
+      - api
+    depends_on:
+      - api
