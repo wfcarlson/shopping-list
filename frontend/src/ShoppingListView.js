@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ItemModel from './ItemModel';
 import './App.css';
 import { List, ListItem } from 'material-ui/List';
 
