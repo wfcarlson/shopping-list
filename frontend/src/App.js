@@ -5,7 +5,6 @@ import './App.css';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Fetch from 'react-fetch';
 import ShoppingListView from './ShoppingListView';
 
 class App extends Component {
@@ -45,9 +44,10 @@ class App extends Component {
       'body': JSON.stringify(this.state.newItem),
       headers: {'Content-Type': 'application/json'},
     };
-    fetch('http://localhost:8080/list/items/', data).then(function(response) {
-        console.log(response);
-    }).then(this.getList())
+
+    fetch('http://localhost:8080/list/items/', data).then((response) => {
+      this.getList();
+    });
   }
 
   render() {

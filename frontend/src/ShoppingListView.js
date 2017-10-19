@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-flexbox-grid';
 import ItemModel from './ItemModel';
 import './App.css';
 import { List, ListItem } from 'material-ui/List';
@@ -15,6 +14,12 @@ export default class ShoppingListView extends Component {
   componentWillReceiveProps(newProps) {
     this.setState({
         itemList: newProps.itemList
+    });
+  }
+
+  componentDidMount() {
+    this.setState({
+        itemList: this.props.itemList
     });
   }
 
